@@ -1,5 +1,6 @@
 import { jwtDecode } from "jwt-decode";
 import httpServices from "./httpService";
+import { useNavigate } from "react-router";
 
 const TOKEN_KEY = "token";
 
@@ -28,7 +29,7 @@ function getJWT() {
 }
 
 function logout() {
-  setToken(null);
+  localStorage.removeItem(TOKEN_KEY);
 }
 
 function getUserFromToken() {

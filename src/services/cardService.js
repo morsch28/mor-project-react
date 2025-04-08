@@ -1,5 +1,4 @@
 import httpServices from "./httpService";
-import userService from "./userService";
 
 function getAllCardsService() {
   return httpServices.get("/cards");
