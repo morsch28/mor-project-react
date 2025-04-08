@@ -1,8 +1,9 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth.context";
 
 function Navbar() {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <nav
@@ -27,17 +28,19 @@ function Navbar() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
+        <ul className="navbar-nav me-auto mb-2 mb-md-0">
+          <li className="nav-item">
+            <NavLink
+              className="nav-link active fs-5"
+              aria-current="page"
+              to="/about"
+            >
+              About
+            </NavLink>
+          </li>
+        </ul>
         {user ? (
           <ul className="navbar-nav me-auto mb-2 mb-md-0">
-            <li className="nav-item">
-              <NavLink
-                className="nav-link active fs-5"
-                aria-current="page"
-                to="/about"
-              >
-                About
-              </NavLink>
-            </li>
             <li className="nav-item">
               <NavLink
                 className="nav-link active fs-5"
@@ -49,17 +52,7 @@ function Navbar() {
             </li>
           </ul>
         ) : (
-          <ul className="navbar-nav me-auto mb-2 mb-md-0">
-            <li className="nav-item">
-              <NavLink
-                className="nav-link active fs-5"
-                aria-current="page"
-                to="/about"
-              >
-                About
-              </NavLink>
-            </li>
-          </ul>
+          <></>
         )}
         <div className="collapse navbar-collapse" id="navbarsExample04">
           <ul className="navbar-nav ms-auto mb-2 mb-md-0 align-items-center">
@@ -77,13 +70,14 @@ function Navbar() {
                   <i className="bi bi-moon-fill"></i>
                 </button>
                 <li className="nav-item">
-                  <NavLink
-                    className="nav-link active fs-5"
-                    aria-current="page"
-                    to="/sign-up"
+                  <button
+                    onClick={() => {
+                      logout();
+                      navigate("/");
+                    }}
                   >
-                    Sign-Out
-                  </NavLink>
+                    Logout
+                  </button>
                 </li>
               </>
             ) : (

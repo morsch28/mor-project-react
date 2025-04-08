@@ -24,9 +24,9 @@ export default function AuthProvider({ children }) {
     }
   }, [decodedToken]);
 
-  const login = async () => {
+  const login = async (credential) => {
     try {
-      const response = await userService.login();
+      const response = await userService.login(credential);
       setDecodedToken(userService.getUserFromToken());
       return response;
     } catch (error) {
