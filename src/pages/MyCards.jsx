@@ -1,16 +1,16 @@
 import PageHeader from "../components/common/PageHeader";
 import CreateCardButton from "../components/CreateCardButton";
 
-function FavCards() {
+function MyCards() {
   return (
     <div className="container">
       <PageHeader
-        title="Favorite cards"
-        description="Here you can find you favorite cards"
+        title="My Cards"
+        description="Here you can see all cards you created"
       />
       <CreateCardButton />
     </div>
   );
 }
 
-export default FavCards;
+export default MyCards;

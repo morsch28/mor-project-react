@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ShowAllCards from "../components/Cards";
 import PageHeader from "../components/common/PageHeader";
 import { useAuth } from "../context/auth.context";
+import CreateCardButton from "../components/CreateCardButton";
 
 function Home() {
   const { user } = useAuth();
@@ -17,6 +18,7 @@ function Home() {
         title="Card Page"
         description="Here you can find business cards from all category"
       />
+      <CreateCardButton />
       <div className="d-flex gap-2">
         <span className="fs-4">
           {user?.name.first && user?.name.last

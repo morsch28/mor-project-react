@@ -4,6 +4,15 @@ function getAllCardsService() {
   return httpServices.get("/cards");
 }
 
+async function getCardById(id) {
+  try {
+    const response = await httpServices.get(`/cards/${id}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 async function CreateNewCard(normalizeCard) {
   userService.refreshToken();
   try {
@@ -16,6 +25,7 @@ async function CreateNewCard(normalizeCard) {
 
 const cardService = {
   getAllCardsService,
+  getCardById,
   CreateNewCard,
 };
 

@@ -54,6 +54,36 @@ function Navbar() {
         ) : (
           <></>
         )}
+        {user?.isBusiness ? (
+          <ul className="navbar-nav me-auto mb-2 mb-md-0">
+            <li className="nav-item">
+              <NavLink
+                className="nav-link active fs-5"
+                aria-current="page"
+                to="/my-cards"
+              >
+                My Cards
+              </NavLink>
+            </li>
+          </ul>
+        ) : (
+          <></>
+        )}
+        {user?.isAdmin ? (
+          <ul className="navbar-nav me-auto mb-2 mb-md-0">
+            <li className="nav-item">
+              <NavLink
+                className="nav-link active fs-5"
+                aria-current="page"
+                to="/my-cards"
+              >
+                SandBox
+              </NavLink>
+            </li>
+          </ul>
+        ) : (
+          <></>
+        )}
         <div className="collapse navbar-collapse" id="navbarsExample04">
           <ul className="navbar-nav ms-auto mb-2 mb-md-0 align-items-center">
             <form role="search">

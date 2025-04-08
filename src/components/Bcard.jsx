@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 function Bcard({ card }) {
   return (
     <div className="card" style={{ width: "18rem", height: "40rem" }}>
@@ -7,8 +9,10 @@ function Bcard({ card }) {
         alt={card.image?.alt}
       />
       <div className="card-body">
-        <h2 className="card-title">{card.title}</h2>
-        <h4>{card.subtitle}</h4>
+        <Link to={`/card-details/${card._id}`}>
+          <h2 className="card-title">{card.title}</h2>
+          <h4>{card.subtitle}</h4>
+        </Link>
       </div>
       <ul className="list-group group-flush">
         <li className="list-group-item">
