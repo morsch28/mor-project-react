@@ -1,8 +1,8 @@
 import PageHeader from "../components/common/PageHeader";
 import CreateCardButton from "../components/CreateCardButton";
 import { useAuth } from "../context/auth.context";
-import { useCards } from "../context/cards.context";
 import Bcard from "../components/Bcard";
+import { useCards } from "../components/ShowAllCards";
 
 function FavCards() {
   const { cards, handleLike } = useCards();
