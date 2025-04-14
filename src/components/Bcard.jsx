@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import cardService from "../services/cardService";
 import { useAuth } from "../context/auth.context";
 // import { useCards } from "../context/cards.context";
-import { useCards } from "./ShowAllCards";
+// import { useCards } from "./ShowAllCards";
 // import { useAuth } from "../context/auth.context";
 
 function Bcard({ card, onLike }) {
@@ -67,7 +67,7 @@ function Bcard({ card, onLike }) {
             <i className="fa-solid fa-phone"></i>
           </a>
           <button
-            onClick={() => handleLike(card._id)}
+            onClick={() => onLike(card._id)}
             className="bg-transparent border-0"
           >
             <i
@@ -80,14 +80,11 @@ function Bcard({ card, onLike }) {
         </div>
         {user?.isAdmin || (user?.isBusiness && isOwner) ? (
           <div className="d-flex gap-3">
-            <button
-              onClick={() => onLike(card._id)}
-              className="border-0 bg-transparent fs-6"
-            >
+            <button className="border-0 bg-transparent fs-6">
               <i className="bi bi-trash3-fill"></i>
             </button>
             <button className="border-0 bg-transparent fs-6">
-              <i class="bi bi-pencil"></i>
+              <i className="bi bi-pencil"></i>
             </button>
           </div>
         ) : null}
