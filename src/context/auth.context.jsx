@@ -9,6 +9,7 @@ export default function AuthProvider({ children }) {
   const [decodedToken, setDecodedToken] = useState(
     userService.getUserFromToken()
   );
+
   const [user, setUser] = useState(undefined);
 
   useEffect(() => {

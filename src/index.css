@@ -5,3 +5,42 @@
   top: 20%;
   left: 80%;
 }
+.dark-mode {
+  background-color: rgba(19, 17, 17, 0.742);
+  color: #fff;
+}
+.dark-mode .navbar {
+  background-color: black;
+}
+.navbar {
+  background-color: rgb(38, 110, 193);
+}
+.dark-mode .bi-sun-fill {
+  color: gold;
+}
+.dark-mode .card-body {
+  background-color: black;
+}
+
+.dark-mode .list-group-item {
+  background-color: black;
+  color: #fff;
+}
+.dark-mode .footer {
+  background-color: black !important;
+}
+.dark-mode .card-footer {
+  background-color: black;
+}
+.dark-mode .bi-heart-fill {
+  color: #fff;
+}
+.dark-mode .fa-phone {
+  color: #fff;
+}
+.card {
+  border-radius: 35px !important;
+}
+.cardImg {
+  border-radius: 12px;
+}

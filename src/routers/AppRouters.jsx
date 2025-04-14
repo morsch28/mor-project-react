@@ -23,6 +23,7 @@ function AppRouters() {
       <Route path="/sign-in" element={<SignIn />} />
       <Route path="/card-details/:id" element={<CardDetails />} />
       <Route path="/create-card" element={<CreateNewCard />} />
+      <Route path="/my-cards" element={<MyCards />} />
     </Routes>
   );
 }

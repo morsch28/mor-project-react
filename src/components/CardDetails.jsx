@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import cardService from "../services/cardService";
 import { useParams } from "react-router";
-import ShowCard from "./ShowCard";
+import ShowCardDetails from "./ShowCardDetails";
 
 function CardDetails() {
   /*
@@ -26,7 +26,7 @@ function CardDetails() {
     loadCard();
   }, []);
 
-  return <ShowCard key={card?._id} card={card} />;
+  return <ShowCardDetails key={card?._id} card={card} />;
 }
 
 export default CardDetails;

@@ -1,4 +1,4 @@
-function ShowCard({ card }) {
+function ShowCardDetails({ card }) {
   return (
     <div className="card w-75">
       <div className="row">
@@ -41,4 +41,4 @@ function ShowCard({ card }) {
   );
 }
 
-export default ShowCard;
+export default ShowCardDetails;

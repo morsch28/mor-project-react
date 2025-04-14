@@ -1,5 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth.context";
+import DarkMode from "./DardMode";
 
 function Navbar() {
   const { user, logout } = useAuth();
@@ -7,7 +8,7 @@ function Navbar() {
 
   return (
     <nav
-      className="navbar navbar-expand-md navbar-dark bg-primary"
+      className="navbar navbar-expand-md navbar-dark"
       aria-label="Fourth navbar example"
     >
       <div className="container align-items-center">
@@ -39,7 +40,7 @@ function Navbar() {
             </NavLink>
           </li>
         </ul>
-        {user ? (
+        {user?.isBusiness || user?.isAdmin ? (
           <ul className="navbar-nav me-auto mb-2 mb-md-0">
             <li className="nav-item">
               <NavLink
@@ -54,7 +55,7 @@ function Navbar() {
         ) : (
           <></>
         )}
-        {user?.isBusiness ? (
+        {user?.isBusiness || user?.isAdmin ? (
           <ul className="navbar-nav me-auto mb-2 mb-md-0">
             <li className="nav-item">
               <NavLink
@@ -96,9 +97,10 @@ function Navbar() {
             </form>
             {user ? (
               <>
-                <button className="btn bg-transparent fs-4">
+                {/* <button className="btn bg-transparent fs-4">
                   <i className="bi bi-moon-fill"></i>
-                </button>
+                </button> */}
+                <DarkMode />
                 <li className="nav-item">
                   <button
                     onClick={() => {
