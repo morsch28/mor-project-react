@@ -143,7 +143,7 @@ function CreateNewCard() {
           <div className="col-4">
             <Input
               {...getFieldProps("street")}
-              error={touched.street && errors.state}
+              error={touched.street && errors.street}
               placeholder="Street"
             />
           </div>

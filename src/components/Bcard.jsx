@@ -2,13 +2,11 @@ import { useState } from "react";
 import { Link } from "react-router";
 import cardService from "../services/cardService";
 import { useAuth } from "../context/auth.context";
-// import { useCards } from "../context/cards.context";
-// import { useCards } from "./ShowAllCards";
-// import { useAuth } from "../context/auth.context";
+import { useCards } from "../hooks/useCards";
 
-function Bcard({ card, onLike, onDelete }) {
+function Bcard({ card }) {
   const { user } = useAuth();
-  // const { handleLike } = useCards();
+  const { handleLike, handleDelete } = useCards();
   const isOwner = card?.user_id == user?._id;
   // const [like, setLike] = useState(false);
 
@@ -67,7 +65,7 @@ function Bcard({ card, onLike, onDelete }) {
             <i className="fa-solid fa-phone"></i>
           </a>
           <button
-            onClick={() => onLike(card._id)}
+            onClick={() => handleLike(card._id)}
             className="bg-transparent border-0"
           >
             <i
@@ -82,8 +80,7 @@ function Bcard({ card, onLike, onDelete }) {
           <div className="d-flex gap-3">
             <button
               onClick={() => {
-                console.log(onDelete);
-                onDelete(card._id);
+                handleDelete(card._id);
               }}
               className="border-0 bg-transparent fs-6"
             >

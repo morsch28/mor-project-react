@@ -19,7 +19,7 @@ function MyCards() {
       }
     };
     loadMyCards();
-  }, []);
+  }, [myCards]);
 
   return (
     <div className="container">

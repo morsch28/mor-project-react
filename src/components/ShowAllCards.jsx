@@ -2,7 +2,7 @@ import Bcard from "./Bcard";
 import { useCards } from "../hooks/useCards";
 
 function ShowAllCards() {
-  const { cards, handleLike, isLoading, handleDelete } = useCards();
+  const { cards, isLoading } = useCards();
 
   return (
     <div>
@@ -15,11 +15,7 @@ function ShowAllCards() {
           {cards ? (
             cards.map((card) => (
               <div key={card._id} className="col-12 col-md-6 col-lg-3 mb-4">
-                <Bcard
-                  onLike={handleLike}
-                  card={card}
-                  onDelete={handleDelete}
-                />
+                <Bcard card={card} />
               </div>
             ))
           ) : (

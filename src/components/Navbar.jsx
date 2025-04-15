@@ -40,7 +40,7 @@ function Navbar() {
             </NavLink>
           </li>
         </ul>
-        {user?.isBusiness || user?.isAdmin ? (
+        {user ? (
           <ul className="navbar-nav me-auto mb-2 mb-md-0">
             <li className="nav-item">
               <NavLink
