@@ -6,7 +6,7 @@ import { useAuth } from "../context/auth.context";
 // import { useCards } from "./ShowAllCards";
 // import { useAuth } from "../context/auth.context";
 
-function Bcard({ card, onLike }) {
+function Bcard({ card, onLike, onDelete }) {
   const { user } = useAuth();
   // const { handleLike } = useCards();
   const isOwner = card?.user_id == user?._id;
@@ -80,7 +80,13 @@ function Bcard({ card, onLike }) {
         </div>
         {user?.isAdmin || (user?.isBusiness && isOwner) ? (
           <div className="d-flex gap-3">
-            <button className="border-0 bg-transparent fs-6">
+            <button
+              onClick={() => {
+                console.log(onDelete);
+                onDelete(card._id);
+              }}
+              className="border-0 bg-transparent fs-6"
+            >
               <i className="bi bi-trash3-fill"></i>
             </button>
             <button className="border-0 bg-transparent fs-6">

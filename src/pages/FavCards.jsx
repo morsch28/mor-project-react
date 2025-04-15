@@ -2,7 +2,7 @@ import PageHeader from "../components/common/PageHeader";
 import CreateCardButton from "../components/CreateCardButton";
 import { useAuth } from "../context/auth.context";
 import Bcard from "../components/Bcard";
-import { useCards } from "../components/ShowAllCards";
+import { useCards } from "../hooks/useCards";
 
 function FavCards() {
   const { cards, handleLike } = useCards();
