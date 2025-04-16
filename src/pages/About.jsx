@@ -1,5 +1,5 @@
 import PageHeader from "../components/common/PageHeader";
-import CreateNewCard from "../components/CreateNewCard";
+import CreateNewCard from "./CreateNewCard";
 
 function About() {
   return (

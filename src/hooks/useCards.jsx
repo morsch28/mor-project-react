@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import cardService from "../services/cardService";
 import { useAuth } from "../context/auth.context";
+import { normalizeCards } from "../cards/normalizeCards";
 
 export const useCards = () => {
   const [cards, setCards] = useState([]);
@@ -54,5 +55,32 @@ export const useCards = () => {
     }
   }
 
-  return { cards, handleLike, isLoading, handleDelete };
+  async function handleCreateNewCard(values) {
+    try {
+      const normalizeCard = normalizeCards(values);
+      const response = await cardService.CreateNewCard(normalizeCard);
+      setCards([...cards, response]);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async function handleUpdateCard(id) {
+    try {
+      const response = await cardService.updateCard(id);
+      setCards(cards.map((card) => card._id == id));
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  return {
+    cards,
+    handleLike,
+    isLoading,
+    handleDelete,
+    handleCreateNewCard,
+    handleUpdateCard,
+  };
 };

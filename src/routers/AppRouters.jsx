@@ -9,7 +9,8 @@ import MyCards from "../pages/MyCards";
 import SandBox from "../pages/SandBox";
 import CardDetails from "../components/CardDetails";
 import CreateCardButton from "../components/CreateCardButton";
-import CreateNewCard from "../components/CreateNewCard";
+import CreateNewCard from "../pages/CreateNewCard";
+import UpdateCard from "../pages/UpdateCard";
 
 function AppRouters() {
   return (
@@ -23,6 +24,7 @@ function AppRouters() {
       <Route path="/sign-in" element={<SignIn />} />
       <Route path="/card-details/:id" element={<CardDetails />} />
       <Route path="/create-card" element={<CreateNewCard />} />
+      <Route path="/update-card/:id" element={<UpdateCard />} />
       <Route path="/my-cards" element={<MyCards />} />
     </Routes>
   );

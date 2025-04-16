@@ -1,35 +1,14 @@
-import { useState } from "react";
-import { Link } from "react-router";
 import cardService from "../services/cardService";
 import { useAuth } from "../context/auth.context";
 import { useCards } from "../hooks/useCards";
+import { useNavigate } from "react-router";
+import { Link } from "react-router";
 
 function Bcard({ card }) {
   const { user } = useAuth();
-  const { handleLike, handleDelete } = useCards();
+  const { handleLike, handleDelete, handleUpdateCard } = useCards();
   const isOwner = card?.user_id == user?._id;
-  // const [like, setLike] = useState(false);
-
-  // async function handleLike() {
-  //   try {
-  //     const data = await cardService.cardLike(card._id);
-  //     setLike(!like);
-  //     console.log(data);
-  //     return data;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
-
-  // check are we in the like array
-  // async function handleDelete() {
-  //   try {
-  //     const response = await cardService.deleteCard(card._id);
-  //     return response;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // }
+  const navigate = useNavigate();
 
   return (
     <div className="card" style={{ width: "15rem", height: "35rem" }}>
@@ -64,6 +43,7 @@ function Bcard({ card }) {
           <a href={`tel: ${card.phone}`}>
             <i className="fa-solid fa-phone"></i>
           </a>
+          {/* /* Like Button */}
           <button
             onClick={() => handleLike(card._id)}
             className="bg-transparent border-0"
@@ -78,6 +58,7 @@ function Bcard({ card }) {
         </div>
         {user?.isAdmin || (user?.isBusiness && isOwner) ? (
           <div className="d-flex gap-3">
+            {/* Delete Button */}
             <button
               onClick={() => {
                 handleDelete(card._id);
@@ -86,7 +67,10 @@ function Bcard({ card }) {
             >
               <i className="bi bi-trash3-fill"></i>
             </button>
-            <button className="border-0 bg-transparent fs-6">
+            <button
+              onClick={() => navigate(`/update-card/${card._id}`)}
+              className="border-0 bg-transparent fs-6"
+            >
               <i className="bi bi-pencil"></i>
             </button>
           </div>
