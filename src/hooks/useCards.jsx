@@ -65,10 +65,12 @@ export const useCards = () => {
       console.log(error);
     }
   }
-  async function handleUpdateCard(id) {
+  async function handleUpdateCard(id, cardData) {
     try {
-      const response = await cardService.updateCard(id);
-      setCards(cards.map((card) => card._id == id));
+      const response = await cardService.updateCard(id, cardData);
+      setCards(
+        cards.map((card) => (card._id == id ? { ...card, response } : card))
+      );
       return response;
     } catch (error) {
       console.log(error);

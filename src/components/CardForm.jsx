@@ -1,3 +1,4 @@
+import UpdateCard from "../pages/UpdateCard";
 import Input from "./common/Input";
 
 function CardForm({ formik }) {

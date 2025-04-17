@@ -5,7 +5,7 @@ import Bcard from "../components/Bcard";
 import { useCards } from "../hooks/useCards";
 
 function FavCards() {
-  const { cards } = useCards();
+  const { cards, handleLike } = useCards();
   const { user } = useAuth();
 
   return (
@@ -20,7 +20,7 @@ function FavCards() {
           cards.map((card) =>
             card.liked ? (
               <div key={card._id} className="col-12 col-md-6 col-lg-3 mb-4">
-                <Bcard card={card} />
+                <Bcard card={card} onLike={handleLike} />
               </div>
             ) : null
           )}

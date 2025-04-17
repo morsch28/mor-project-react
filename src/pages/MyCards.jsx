@@ -4,9 +4,11 @@ import CreateCardButton from "../components/CreateCardButton";
 import { useEffect } from "react";
 import cardService from "../services/cardService";
 import Bcard from "../components/Bcard";
+import { useCards } from "../hooks/useCards";
 
 function MyCards() {
   const [myCards, setMyCards] = useState([]);
+  const { handleLike, handleDelete } = useCards();
 
   useEffect(() => {
     const loadMyCards = async () => {
@@ -32,7 +34,7 @@ function MyCards() {
         {myCards ? (
           myCards.map((card) => (
             <div key={card?._id} className="col-12 col-md-6 col-lg-3 mb-4">
-              <Bcard card={card} />
+              <Bcard card={card} onLike={handleLike} onDelete={handleDelete} />
             </div>
           ))
         ) : (

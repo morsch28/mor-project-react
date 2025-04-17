@@ -1,12 +1,10 @@
 import cardService from "../services/cardService";
 import { useAuth } from "../context/auth.context";
-import { useCards } from "../hooks/useCards";
 import { useNavigate } from "react-router";
 import { Link } from "react-router";
 
-function Bcard({ card }) {
+function Bcard({ card, onLike, onDelete }) {
   const { user } = useAuth();
-  const { handleLike, handleDelete, handleUpdateCard } = useCards();
   const isOwner = card?.user_id == user?._id;
   const navigate = useNavigate();
 
@@ -45,7 +43,7 @@ function Bcard({ card }) {
           </a>
           {/* /* Like Button */}
           <button
-            onClick={() => handleLike(card._id)}
+            onClick={() => onLike(card?._id)}
             className="bg-transparent border-0"
           >
             <i
@@ -60,9 +58,7 @@ function Bcard({ card }) {
           <div className="d-flex gap-3">
             {/* Delete Button */}
             <button
-              onClick={() => {
-                handleDelete(card._id);
-              }}
+              onClick={() => onDelete(card?._id)}
               className="border-0 bg-transparent fs-6"
             >
               <i className="bi bi-trash3-fill"></i>

@@ -48,9 +48,9 @@ async function deleteCard(id) {
   }
 }
 
-async function updateCard(id) {
+async function updateCard(id, cardData) {
   try {
-    const response = await httpServices.put(`/cards/${id}`);
+    const response = await httpServices.put(`/cards/${id}`, cardData);
     return response.data;
   } catch (error) {
     console.log(error);
