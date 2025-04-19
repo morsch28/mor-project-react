@@ -1,14 +1,17 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth.context";
-import DarkMode from "./DardMode";
+import { useTheme } from "../context/theme.context";
 
 function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
+  const { mode, toggleMode } = useTheme();
 
   return (
     <nav
-      className="navbar navbar-expand-md navbar-dark"
+      className={`navbar navbar-expand-md ${
+        mode === "light" ? "navbar-custom-light" : "bg-black"
+      }`}
       aria-label="Fourth navbar example"
     >
       <div className="container align-items-center">
@@ -97,10 +100,22 @@ function Navbar() {
             </form>
             {user ? (
               <>
-                {/* <button className="btn bg-transparent fs-4">
-                  <i className="bi bi-moon-fill"></i>
-                </button> */}
-                <DarkMode />
+                {mode == "light" ? (
+                  <button
+                    onClick={() => toggleMode()}
+                    className="btn bg-transparent fs-4"
+                  >
+                    <i className="bi bi-moon-fill"></i>
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => toggleMode()}
+                    className="btn bg-transparent fs-4"
+                  >
+                    <i className="bi bi-brightness-high-fill"></i>
+                  </button>
+                )}
+
                 <li className="nav-item">
                   <button
                     onClick={() => {

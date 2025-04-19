@@ -8,6 +8,7 @@ function Input({ error, ...rest }) {
           className={[
             rest?.type != "checkbox" && "form-control",
             error ? "is-invalid" : "",
+            "py-3",
           ].join(" ")}
           id={rest.name}
           aria-describedby="emailHelp"

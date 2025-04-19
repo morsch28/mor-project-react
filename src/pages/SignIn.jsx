@@ -3,8 +3,8 @@ import Input from "../components/common/Input";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router";
 import Joi from "joi";
-import userService from "../services/userService";
 import { useAuth } from "../context/auth.context";
+import FormButton from "../components/common/FormButtons";
 
 function SignIn() {
   const navigate = useNavigate();
@@ -60,13 +60,7 @@ function SignIn() {
           {...getFieldProps("password")}
           error={touched.password && errors.password}
         />
-        <button
-          disabled={!isValid}
-          type="submit"
-          className="btn btn-primary w-50 mb-5"
-        >
-          Submit
-        </button>
+        <FormButton navigate={navigate} isValid={isValid} />
       </form>
     </div>
   );
