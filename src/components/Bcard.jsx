@@ -9,11 +9,11 @@ function Bcard({ card, onLike, onDelete }) {
   const navigate = useNavigate();
 
   return (
-    <div className="card" style={{ width: "15rem", height: "35rem" }}>
+    <div className="card" style={{ width: "15rem", height: "31rem" }}>
       <img
         src={card.image?.url}
         className="card-img-top cardImg"
-        style={{ height: "250px" }}
+        style={{ height: "200px" }}
         alt={card.image?.alt}
       />
       <div className="card-body" style={{ maxHeight: "140px" }}>

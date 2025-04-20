@@ -6,11 +6,11 @@ import Home from "../pages/Home";
 import CopySignUp from "../pages/SignUp";
 import FavCards from "../pages/FavCards";
 import MyCards from "../pages/MyCards";
-import SandBox from "../pages/SandBox";
 import CardDetails from "../components/CardDetails";
 import CreateCardButton from "../components/CreateCardButton";
 import CreateNewCard from "../pages/CreateNewCard";
 import UpdateCard from "../pages/UpdateCard";
+import SandBox from "../pages/SandBox";
 
 function AppRouters() {
   return (

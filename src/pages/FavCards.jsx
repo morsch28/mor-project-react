@@ -16,14 +16,13 @@ function FavCards() {
       />
       {user?.isBusiness && <CreateCardButton />}
       <div className="row">
-        {user?.isBusiness &&
-          cards.map((card) =>
-            card.liked ? (
-              <div key={card._id} className="col-12 col-md-6 col-lg-3 mb-4">
-                <Bcard card={card} onLike={handleLike} />
-              </div>
-            ) : null
-          )}
+        {cards.map((card) =>
+          card.liked ? (
+            <div key={card._id} className="col-12 col-md-6 col-lg-3 mb-4">
+              <Bcard card={card} onLike={handleLike} />
+            </div>
+          ) : null
+        )}
       </div>
     </div>
   );

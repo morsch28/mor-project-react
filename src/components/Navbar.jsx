@@ -79,7 +79,7 @@ function Navbar() {
               <NavLink
                 className="nav-link active fs-5"
                 aria-current="page"
-                to="/my-cards"
+                to="/sand-box"
               >
                 SandBox
               </NavLink>
