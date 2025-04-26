@@ -4,7 +4,7 @@ import PageHeader from "../components/common/PageHeader";
 function LoggedUserInfo() {
   const { user } = useAuth();
   return user ? (
-    <div className="d-flex bg-danger flex-column w-50">
+    <div className="d-flex bg-danger flex-column w-50 align-items-center">
       <PageHeader
         title="User Information"
         description="In this page you can edit your details"
@@ -24,6 +24,9 @@ function LoggedUserInfo() {
           </div>
         </div>
       </div>
+      <button className="my-3 py-2 px-3 btn btn-primary">
+        Edit User Details
+      </button>
     </div>
   ) : (
     <div>No User to show</div>

@@ -3,7 +3,7 @@ import PageHeader from "./common/PageHeader";
 function ShowUserInfoDetails({ user }) {
   console.log(user);
   return (
-    <div className="d-flex bg-warning flex-column w-50">
+    <div className="d-flex bg-warning flex-column w-50 justify-content-center align-items-center">
       <PageHeader
         title="User Information"
         description="In this page you can edit your details"
@@ -13,16 +13,25 @@ function ShowUserInfoDetails({ user }) {
         <div className="d-flex flex-column  fs-5 gap-4 my-4">
           <div>UserId: {user?._id}</div>
           <div>
-            Name: {user?.name.first} {user?.name.last}
+            <span className="fw-bold">Name:</span> {user?.name.first}
+            {user?.name.last}
           </div>
-          <div>Phone: {user?.phone}</div>
-          <div>Email: {user?.email}</div>
           <div>
-            Address: {user?.address.street}, {user?.address.houseNumber},
-            {user?.address.city}, {user?.address.country}
+            <span className="fw-bold">Phone:</span> {user?.phone}
+          </div>
+          <div>
+            <span className="fw-bold">Email:</span> {user?.email}
+          </div>
+          <div>
+            <span className="fw-bold">Address:</span> {user?.address.street},{" "}
+            {user?.address.houseNumber},{user?.address.city},{" "}
+            {user?.address.country}
           </div>
         </div>
       </div>
+      <button className="my-3 py-2 px-3 btn btn-primary">
+        Edit User Details
+      </button>
     </div>
   );
 }
