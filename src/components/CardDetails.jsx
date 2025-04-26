@@ -2,23 +2,19 @@ import { useEffect, useState } from "react";
 import cardService from "../services/cardService";
 import { useParams } from "react-router";
 import ShowCardDetails from "./ShowCardDetails";
+import { useCards } from "../hooks/useCards";
 
 function CardDetails() {
-  /*
-{
-  id: '66e3eaaff9d3ea58f6fe3335'
-}
-*/
-  const params = useParams();
+  const { id } = useParams();
+  const { isLoading } = useCards();
 
   const [card, setCard] = useState(null);
 
   useEffect(() => {
     const loadCard = async () => {
       try {
-        const cardDetail = await cardService.getCardById(params.id);
-        setCard(cardDetail);
-        console.log(cardDetail);
+        const cardDetail = await cardService.getCardById(id);
+        setCard(cardDetail.data);
       } catch (error) {
         console.log(error);
       }
@@ -26,7 +22,18 @@ function CardDetails() {
     loadCard();
   }, []);
 
-  return <ShowCardDetails key={card?._id} card={card} />;
+  return (
+    <>
+      {isLoading ? (
+        <div className="spinner-border text-danger" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      ) : (
+        <ShowCardDetails key={card?._id} card={card} />
+      )}
+    </>
+  );
+  // return <ShowCardDetails key={card?._id} card={card} />;
 }
 
 export default CardDetails;

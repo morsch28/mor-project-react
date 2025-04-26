@@ -4,8 +4,8 @@ function ShowCardDetails({ card }) {
       <div className="row">
         <div className="col-6">
           <img
-            src={card?.image.url}
-            alt={card?.image.alt}
+            src={card?.image?.url}
+            alt={card?.image?.alt}
             className="img-fluid"
           />
         </div>
@@ -29,9 +29,9 @@ function ShowCardDetails({ card }) {
             </a>
           </p>
           <p className="card-text">
-            {card?.address.street} {card?.address.houseNumber},
-            {card?.address.city}, {card?.address.country}, {card?.address.state}
-            , {card?.address.zip}
+            {card?.address?.street} {card?.address?.houseNumber},
+            {card?.address?.city}, {card?.address?.country},{" "}
+            {card?.address?.state}, {card?.address?.zip}
           </p>
           <p className="card-text">{card?.bizNumber}</p>
           <p className="card-text">{card?.createdAt}</p>

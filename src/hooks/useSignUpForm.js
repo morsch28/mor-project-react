@@ -2,10 +2,14 @@ import { useNavigate } from "react-router";
 import { useAuth } from "../context/auth.context";
 import { useFormik } from "formik";
 import Joi from "joi";
+import { useState } from "react";
+import { normalizeUser } from "../users/normalizeUser";
 
 export function useSignUpForm() {
   const navigate = useNavigate();
   const { createUser, login } = useAuth();
+
+  const [serverError, setServerError] = useState("");
 
   const formik = useFormik({
     initialValues: {
@@ -64,15 +68,23 @@ export function useSignUpForm() {
     onSubmit: async (values) => {
       try {
         const user = normalizeUser(values);
-        const { status } = await createUser(user);
-        if (status === 201) {
+        const response = await createUser(user);
+        if (response?.status === 201) {
           await login({ email: values.email, password: values.password });
           navigate("/");
         }
       } catch (err) {
-        console.log(err);
+        console.log("error:", err);
+        if (err.response?.status === 400) {
+          console.log("status 400...");
+          setServerError(err.response.data);
+        } else {
+          console.log("Something wrong, Please try again!");
+        }
       }
     },
   });
-  return formik;
+
+  // שאלה - למה כשאני מחזירה את formik לבד אפשר להחזיר אותו בלי ספרד ושאני מוסיפה serverError אז אני צריכה להוסיף את זה ?
+  return { ...formik, serverError };
 }

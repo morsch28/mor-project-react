@@ -3,16 +3,18 @@ import Input from "../components/common/Input";
 import { useNavigate } from "react-router";
 import { useSignUpForm } from "../hooks/useSignUpForm";
 import FormButton from "../components/common/FormButtons";
+import { useState } from "react";
 
 function SignUp() {
   const navigate = useNavigate();
-  const { handleSubmit, touched, errors, isValid, getFieldProps } =
+  const { handleSubmit, touched, errors, isValid, getFieldProps, serverError } =
     useSignUpForm();
 
   return (
     <div className="container d-flex flex-column align-items-center">
       <PageHeader title="Sign-Up" />
       <form className="w-50" onSubmit={handleSubmit}>
+        {serverError && <div className="alert alert-danger">{serverError}</div>}
         <div className="row">
           <div className="col-4">
             <Input
@@ -55,6 +57,7 @@ function SignUp() {
           </div>
           <Input
             placeholder="Password"
+            type="password"
             {...getFieldProps("password")}
             error={touched.password && errors.password}
           />

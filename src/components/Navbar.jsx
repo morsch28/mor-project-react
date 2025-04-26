@@ -14,7 +14,7 @@ function Navbar() {
       }`}
       aria-label="Fourth navbar example"
     >
-      <div className="container align-items-center">
+      <div className="container align-items-center gap-2">
         <NavLink
           className="logo text-light fs-2 fw-bold mx-3 nav-link mb-2"
           to="/"
@@ -116,7 +116,7 @@ function Navbar() {
                   </button>
                 )}
 
-                <li className="nav-item">
+                <li className="nav-item mx-2">
                   <button
                     onClick={() => {
                       logout();
@@ -126,6 +126,19 @@ function Navbar() {
                     Logout
                   </button>
                 </li>
+                {user?.isAdmin ? (
+                  <li className="nav-item mx-3">
+                    <NavLink
+                      className="nav-link active fs-5"
+                      aria-current="page"
+                      to="/user-info"
+                    >
+                      User Info
+                    </NavLink>
+                  </li>
+                ) : (
+                  <div></div>
+                )}
               </>
             ) : (
               <>

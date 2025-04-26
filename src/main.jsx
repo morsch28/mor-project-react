@@ -8,6 +8,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import { BrowserRouter } from "react-router";
 import AuthProvider from "./context/auth.context.jsx";
 import { ThemeProvider } from "./context/theme.context.jsx";
+import { ToastContainer } from "react-toastify";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

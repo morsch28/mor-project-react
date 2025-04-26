@@ -57,6 +57,7 @@ function SignIn() {
         />
         <Input
           placeholder="Password"
+          type="password"
           {...getFieldProps("password")}
           error={touched.password && errors.password}
         />

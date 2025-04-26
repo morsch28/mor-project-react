@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import PageHeader from "../components/common/PageHeader";
 import CardForm from "../components/CardForm";
 import { useCards } from "../hooks/useCards";
+import feedbackService from "../services/feedbackService";
 
 function CreateNewCard() {
   const { handleCreateNewCard } = useCards();
@@ -57,6 +58,8 @@ function CreateNewCard() {
     onSubmit: async (values) => {
       try {
         const response = await handleCreateNewCard(values);
+        feedbackService.successMessage();
+        await new Promise((resolve) => setTimeout(resolve, 500));
         navigate("/");
         return response;
       } catch (error) {
@@ -75,5 +78,4 @@ function CreateNewCard() {
     </>
   );
 }
-
 export default CreateNewCard;

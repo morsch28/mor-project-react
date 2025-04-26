@@ -8,7 +8,7 @@ function Layout() {
       <header>
         <Navbar />
       </header>
-      <main className="flex-fill d-flex flex-column align-items-center justify-content-center">
+      <main className="flex-fill d-flex flex-column align-items-center justify-content-center mb-5">
         <Main />
       </main>
       <Footer />

@@ -7,29 +7,27 @@ import { useCards } from "../hooks/useCards";
 import { useEffect, useState } from "react";
 import cardService from "../services/cardService";
 import { normalizeCards } from "../cards/normalizeCards";
+import feedbackService from "../services/feedbackService";
 
 function UpdateCard() {
   const { handleUpdateCard } = useCards();
   let navigate = useNavigate();
 
-  const [cards, setCards] = useState([]);
+  const [cardToUpdate, setCardUpdate] = useState([]);
   const { id } = useParams();
 
   useEffect(() => {
     const loadCard = async () => {
       try {
-        const allMyCards = await cardService.getAllMyCards();
-        setCards(allMyCards.data);
-        return allMyCards;
+        const getCardToUpdate = await cardService.getCardById(id);
+        setCardUpdate(getCardToUpdate.data);
+        return getCardToUpdate;
       } catch (error) {
         console.log(error);
       }
     };
     loadCard();
   }, []);
-
-  const cardToUpdate = cards.find((card) => card._id == id);
-  console.log(cardToUpdate);
 
   const formik = useFormik({
     enableReinitialize: true,
@@ -63,7 +61,7 @@ function UpdateCard() {
         country: Joi.string().required(),
         city: Joi.string().required(),
         street: Joi.string().required(),
-        houseNumber: Joi.string().min(1).required(),
+        houseNumber: Joi.number().min(1).required(),
         zip: Joi.number(),
       });
       const { error } = schema.validate(values, { abortEarly: false });
@@ -85,6 +83,8 @@ function UpdateCard() {
             cardToUpdate._id,
             normalizeCard
           );
+          feedbackService.updateSuccessful();
+          await new Promise((resolve) => setTimeout(resolve, 500));
           navigate("/");
           return response;
         }

@@ -2,6 +2,7 @@ import cardService from "../services/cardService";
 import { useAuth } from "../context/auth.context";
 import { useNavigate } from "react-router";
 import { Link } from "react-router";
+import feedbackService from "../services/feedbackService";
 
 function Bcard({ card, onLike, onDelete }) {
   const { user } = useAuth();
@@ -42,29 +43,45 @@ function Bcard({ card, onLike, onDelete }) {
             <i className="fa-solid fa-phone"></i>
           </a>
           {/* /* Like Button */}
-          <button
-            onClick={() => onLike(card?._id)}
-            className="bg-transparent border-0"
-          >
-            <i
-              className={[
-                "bi bi-heart-fill",
-                card.liked ? "text-danger" : "",
-              ].join(" ")}
-            ></i>
-          </button>
+          {user ? (
+            <button
+              onClick={() => onLike(card?._id)}
+              className="bg-transparent border-0"
+            >
+              <i
+                className={[
+                  "bi bi-heart-fill",
+                  card.liked ? "text-danger" : "",
+                ].join(" ")}
+              ></i>
+            </button>
+          ) : (
+            <></>
+          )}
         </div>
         {user?.isAdmin || (user?.isBusiness && isOwner) ? (
           <div className="d-flex gap-3">
             {/* Delete Button */}
             <button
-              onClick={() => onDelete(card?._id)}
+              onClick={async () => {
+                const confirm = await feedbackService.deleteMessage();
+                if (confirm) {
+                  onDelete(card?._id);
+                }
+              }}
               className="border-0 bg-transparent fs-6"
             >
               <i className="bi bi-trash3-fill"></i>
             </button>
+
+            {/* Update Button  */}
             <button
-              onClick={() => navigate(`/update-card/${card._id}`)}
+              onClick={async () => {
+                const confirm = await feedbackService.updateMessage();
+                if (confirm) {
+                  navigate(`/update-card/${card._id}`);
+                }
+              }}
               className="border-0 bg-transparent fs-6"
             >
               <i className="bi bi-pencil"></i>

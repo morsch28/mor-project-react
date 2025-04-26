@@ -5,7 +5,7 @@ import Bcard from "../components/Bcard";
 import { useCards } from "../hooks/useCards";
 
 function FavCards() {
-  const { cards, handleLike } = useCards();
+  const { cards, handleLike, isLoading } = useCards();
   const { user } = useAuth();
 
   return (
@@ -15,15 +15,21 @@ function FavCards() {
         description="Here you can find you favorite cards"
       />
       {user?.isBusiness && <CreateCardButton />}
-      <div className="row">
-        {cards.map((card) =>
-          card.liked ? (
-            <div key={card._id} className="col-12 col-md-6 col-lg-3 mb-4">
-              <Bcard card={card} onLike={handleLike} />
-            </div>
-          ) : null
-        )}
-      </div>
+      {isLoading ? (
+        <div className="spinner-border text-danger" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      ) : (
+        <div className="row">
+          {cards.map((card) =>
+            card.liked ? (
+              <div key={card._id} className="col-12 col-md-6 col-lg-3 mb-4">
+                <Bcard card={card} onLike={handleLike} />
+              </div>
+            ) : null
+          )}
+        </div>
+      )}
     </div>
   );
 }

@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import PageHeader from "../components/common/PageHeader";
 
 import userService from "../services/userService";
+import { useNavigate } from "react-router";
 
 function SandBox() {
   const [usersArr, setUsersArr] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const loadAllUsers = async () => {
@@ -30,20 +32,9 @@ function SandBox() {
           <tr className="border-1 table-primary">
             <th>User Id</th>
             <th>First Name</th>
-            <th>Middle Name</th>
             <th>Last Name</th>
             <th>Phone</th>
             <th>Email</th>
-            <th>Image Url</th>
-            <th>Image Alt</th>
-            <th>Image Id</th>
-            <th>State</th>
-            <th>Country</th>
-            <th>City</th>
-            <th>Street</th>
-            <th>House Number</th>
-            <th>Zip</th>
-            <th>Address Id</th>
             <th>Is Admin</th>
             <th>Is Business</th>
             <th>Created At</th>
@@ -57,25 +48,17 @@ function SandBox() {
               <tr key={user?._id} className="table-active">
                 <td>{user?._id}</td>
                 <td>{user.name?.first}</td>
-                <td>{user?.name.middle}</td>
                 <td>{user?.name.last}</td>
                 <td>{user?.phone}</td>
                 <td>{user?.email}</td>
-                <td>{user?.image?.url}</td>
-                <td>{user?.name?.alt}</td>
-                <td>{user?.name?._id}</td>
-                <td>{user?.address.state}</td>
-                <td>{user?.address.country}</td>
-                <td>{user?.address.city}</td>
-                <td>{user?.address.street}</td>
-                <td>{user?.address.houseNumber}</td>
-                <td>{user?.address.zip}</td>
-                <td>{user?.address._id}</td>
                 <td>{user?.isAdmin ? "true" : "false"}</td>
                 <td>{user?.isBusiness ? "true" : "false"}</td>
                 <td>{user?.createdAt}</td>
                 <td>
-                  <button className="border-0 bg-transparent">
+                  <button
+                    onClick={() => navigate(`/show-user-info/${user?._id}`)}
+                    className="border-0 bg-transparent"
+                  >
                     <i className="bi bi-eye-fill fs-5 text-primary"></i>
                   </button>
                 </td>

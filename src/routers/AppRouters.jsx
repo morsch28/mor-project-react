@@ -12,6 +12,9 @@ import CreateNewCard from "../pages/CreateNewCard";
 import UpdateCard from "../pages/UpdateCard";
 import SandBox from "../pages/SandBox";
 
+import LoggedUserInfo from "../pages/LoggedUserInfo";
+import ShowUserInfo from "../components/ShowUserInfo";
+
 function AppRouters() {
   return (
     <Routes>
@@ -20,6 +23,8 @@ function AppRouters() {
       <Route path="/my-cards" element={<MyCards />} />
       <Route path="/sand-box" element={<SandBox />} />
       <Route path="/about" element={<About />} />
+      <Route path="/user-info" element={<LoggedUserInfo />} />
+      <Route path="/show-user-info/:id" element={<ShowUserInfo />} />
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/sign-in" element={<SignIn />} />
       <Route path="/card-details/:id" element={<CardDetails />} />
