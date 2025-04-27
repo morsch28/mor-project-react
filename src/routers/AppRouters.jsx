@@ -14,6 +14,7 @@ import SandBox from "../pages/SandBox";
 
 import LoggedUserInfo from "../pages/LoggedUserInfo";
 import ShowUserInfo from "../components/ShowUserInfo";
+import EditUser from "../pages/EditUser";
 
 function AppRouters() {
   return (
@@ -25,6 +26,7 @@ function AppRouters() {
       <Route path="/about" element={<About />} />
       <Route path="/user-info" element={<LoggedUserInfo />} />
       <Route path="/show-user-info/:id" element={<ShowUserInfo />} />
+      <Route path="/edit-user/:id" element={<EditUser />} />
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/sign-in" element={<SignIn />} />
       <Route path="/card-details/:id" element={<CardDetails />} />

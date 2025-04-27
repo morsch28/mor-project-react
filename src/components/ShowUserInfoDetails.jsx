@@ -1,7 +1,9 @@
+import { useNavigate } from "react-router";
 import PageHeader from "./common/PageHeader";
 
 function ShowUserInfoDetails({ user }) {
-  console.log(user);
+  const navigate = useNavigate();
+
   return (
     <div className="d-flex bg-warning flex-column w-50 justify-content-center align-items-center">
       <PageHeader title="User Information" />
@@ -26,7 +28,11 @@ function ShowUserInfoDetails({ user }) {
           </div>
         </div>
       </div>
-      <button className="my-3 py-2 px-3 btn btn-primary">
+      {/* Edit Button */}
+      <button
+        onClick={() => navigate(`/edit-user/${user?._id}`)}
+        className="my-3 py-2 px-3 btn btn-primary"
+      >
         Edit User Details
       </button>
     </div>
