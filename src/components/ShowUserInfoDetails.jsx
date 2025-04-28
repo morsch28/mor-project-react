@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router";
 import PageHeader from "./common/PageHeader";
+import feedbackService from "../services/feedbackService";
 
 function ShowUserInfoDetails({ user }) {
   const navigate = useNavigate();
@@ -30,7 +31,15 @@ function ShowUserInfoDetails({ user }) {
       </div>
       {/* Edit Button */}
       <button
-        onClick={() => navigate(`/edit-user/${user?._id}`)}
+        onClick={() => {
+          feedbackService.onFireModal(
+            "warning",
+            "Are you sure you want to update user details?",
+            (isConfirm) => {
+              navigate(`/edit-user/${user?._id}`);
+            }
+          );
+        }}
         className="my-3 py-2 px-3 btn btn-primary"
       >
         Edit User Details

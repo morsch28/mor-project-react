@@ -4,8 +4,10 @@ import { useFormik } from "formik";
 import Joi from "joi";
 import { useState } from "react";
 import { normalizeUser } from "../users/normalizeUser";
+import userService from "../services/userService";
+import feedbackService from "../services/feedbackService";
 
-export function useSignUpForm() {
+export function useSignUpForm(userToUpdate) {
   const navigate = useNavigate();
   const { createUser, login } = useAuth();
 
@@ -13,21 +15,21 @@ export function useSignUpForm() {
 
   const formik = useFormik({
     initialValues: {
-      first: "",
-      last: "",
-      middle: "",
-      phone: "",
-      email: "",
-      password: "",
-      url: "",
-      alt: "",
-      state: "",
-      country: "",
-      city: "",
-      street: "",
-      houseNumber: "",
-      zip: "",
-      isBusiness: false,
+      first: userToUpdate?.name.first || "",
+      last: userToUpdate?.name.last || "",
+      middle: userToUpdate?.name.middle || "",
+      phone: userToUpdate?.phone || "",
+      email: userToUpdate?.email || "",
+      password: userToUpdate?.password || "",
+      url: userToUpdate?.image.url || "",
+      alt: userToUpdate?.image.alt || "",
+      state: userToUpdate?.address.state || "",
+      country: userToUpdate?.address.country || "",
+      city: userToUpdate?.address.city || "",
+      street: userToUpdate?.address.street || "",
+      houseNumber: userToUpdate?.address.houseNumber || "",
+      zip: userToUpdate?.address.zip || "",
+      isBusiness: userToUpdate?.isBusiness || "",
     },
     validate(values) {
       const schema = Joi.object({
@@ -39,12 +41,16 @@ export function useSignUpForm() {
           .max(10)
           .required()
           .pattern(/^(\+9725\d{8}|05\d{8}$)/),
-        email: Joi.string().min(5).max(255).required().email({ tlds: false }),
-        password: Joi.string()
-          .min(9)
-          .max(20)
-          .required()
-          .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*(\d))(?=.*[!@#$%^&*-])/),
+        email: userToUpdate
+          ? Joi.optional()
+          : Joi.string().min(5).max(255).required().email({ tlds: false }),
+        password: userToUpdate
+          ? Joi.optional()
+          : Joi.string()
+              .min(9)
+              .max(20)
+              .required()
+              .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*(\d))(?=.*[!@#$%^&*-])/),
         url: Joi.string().allow("").uri(),
         alt: Joi.string().allow(""),
         state: Joi.string().min(2).max(256).allow(""),
@@ -52,7 +58,7 @@ export function useSignUpForm() {
         city: Joi.string().min(2).max(100).required(),
         street: Joi.string().min(2).max(256).required(),
         houseNumber: Joi.number().integer().positive().required(),
-        zip: Joi.string().min(4).max(10).required(),
+        zip: Joi.string().min(2).max(10).required(),
         isBusiness: Joi.boolean().required(),
       });
       const { error } = schema.validate(values, { abortEarly: false });
@@ -68,6 +74,19 @@ export function useSignUpForm() {
     onSubmit: async (values) => {
       try {
         const user = normalizeUser(values);
+        if (userToUpdate) {
+          delete user.email;
+          delete user.password;
+          delete user.isBusiness;
+          const response = await userService.updateUser(userToUpdate._id, user);
+          feedbackService.onFireModal(
+            "success",
+            "User details updated successfully"
+          );
+          console.log(response);
+          navigate("/sand-box");
+          return response;
+        }
         const response = await createUser(user);
         if (response?.status === 201) {
           await login({ email: values.email, password: values.password });

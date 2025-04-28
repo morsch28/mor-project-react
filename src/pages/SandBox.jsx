@@ -11,12 +11,33 @@ function SandBox() {
   const navigate = useNavigate();
   const { isLoading } = useCards();
 
+  async function deleteUser(id) {
+    try {
+      const deleteUser = await feedbackService.onFireModal(
+        "warning",
+        "Are you sure you want to delete this user?"
+      );
+      if (deleteUser) {
+        const response = await userService.deleteUser(id);
+        if (response) {
+          setUsersArr(usersArr.filter((user) => user._id != id));
+          await feedbackService.onFireModal(
+            "success",
+            "User deletes Successfully"
+          );
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      await feedbackService.onFireModal("error", "server error:" + error);
+    }
+  }
+
   useEffect(() => {
     const loadAllUsers = async () => {
       try {
         const response = await userService.getAllUsers();
         setUsersArr(response);
-        return response;
       } catch (error) {
         console.log(error);
       }
@@ -62,7 +83,9 @@ function SandBox() {
                   <td>
                     {/* User Info */}
                     <button
-                      onClick={() => navigate(`/show-user-info/${user?._id}`)}
+                      onClick={() => {
+                        navigate(`/show-user-info/${user?._id}`);
+                      }}
                       className="border-0 bg-transparent"
                     >
                       <i className="bi bi-eye-fill fs-5 text-primary"></i>
@@ -71,20 +94,7 @@ function SandBox() {
                   <td>
                     {/* Delete User */}
                     <button
-                      onClick={async () => {
-                        const deleteUser =
-                          await feedbackService.deleteUserMessage();
-                        if (deleteUser) {
-                          try {
-                            const response = await userService.deleteUser(
-                              user._id
-                            );
-                            return response;
-                          } catch (error) {
-                            console.log(error);
-                          }
-                        }
-                      }}
+                      onClick={() => deleteUser(user._id)}
                       className="border-0 bg-transparent"
                     >
                       <i className="bi bi-trash fs-5 text-danger"></i>
@@ -93,7 +103,7 @@ function SandBox() {
                 </tr>
               ))
             ) : (
-              <div></div>
+              <></>
             )}
           </tbody>
         </table>

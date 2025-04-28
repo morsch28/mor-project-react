@@ -58,9 +58,9 @@ async function getAllUsers() {
   }
 }
 
-async function updateUser(id) {
+async function updateUser(id, user) {
   try {
-    const response = await httpServices.put(`/users/${id}`);
+    const response = await httpServices.put(`/users/${id}`, user);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -69,7 +69,11 @@ async function updateUser(id) {
 
 async function deleteUser(id) {
   try {
-    const response = await httpServices.delete(`/users/${id}`);
+    const response = await httpServices.delete(`/users/${id}`, {
+      headers: {
+        "x-auth-token": getJWT(),
+      },
+    });
     return response.data;
   } catch (error) {
     console.log(error);

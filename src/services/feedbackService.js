@@ -46,18 +46,16 @@ function deleteMessage() {
   });
 }
 
-function deleteUserMessage() {
-  return new Promise((resolve) => {
-    Swal.fire({
-      icon: "warning",
-      text: "Are you sure you want to delete this user",
-      showConfirmButton: true,
-      confirmButtonText: "Ok",
-      cancelButtonText: "Cancel",
-      showCancelButton: true,
-    }).then((result) => {
-      resolve(result.isConfirmed);
-    });
+function onFireModal(icon, text, callback) {
+  Swal.fire({
+    icon: icon,
+    text: text,
+    showConfirmButton: true,
+    confirmButtonText: "Ok",
+    cancelButtonText: "Cancel",
+    showCancelButton: true,
+  }).then((result) => {
+    callback(result.isConfirmed);
   });
 }
 
@@ -66,6 +64,6 @@ const message = {
   updateMessage,
   updateSuccessful,
   deleteMessage,
-  deleteUserMessage,
+  onFireModal,
 };
 export default message;

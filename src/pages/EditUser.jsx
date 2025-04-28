@@ -12,14 +12,31 @@ function EditUser() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { handleSubmit, touched, errors, isValid, getFieldProps, setValues } =
-    useSignUpForm();
+    useSignUpForm(user);
 
   useEffect(() => {
     const loadEditUser = async () => {
       try {
-        const UserToEdit = await userService.getUserById(id);
-        setUser(UserToEdit);
-        return UserToEdit;
+        const userToEdit = await userService.getUserById(id);
+        setUser(userToEdit);
+        setValues({
+          first: userToEdit?.name.first || "",
+          last: userToEdit?.name.last || "",
+          middle: userToEdit?.name.middle || "",
+          phone: userToEdit?.phone || "",
+          email: userToEdit?.email || "",
+          password: userToEdit?.password || "",
+          url: userToEdit?.image.url || "",
+          alt: userToEdit?.image.alt || "",
+          state: userToEdit?.address.state || "",
+          country: userToEdit?.address.country || "",
+          city: userToEdit?.address.city || "",
+          street: userToEdit?.address.street || "",
+          houseNumber: userToEdit?.address.houseNumber || "",
+          zip: userToEdit?.address.zip || "",
+          isBusiness: userToEdit?.isBusiness || "",
+        });
+        return userToEdit;
       } catch (error) {
         console.log(error);
       }
@@ -31,19 +48,10 @@ function EditUser() {
     return <div>Not Found User</div>;
   }
 
-  const onSubmit = async () => {
-    try {
-      const response = await userService.updateUser(id);
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <div className="container d-flex flex-column align-items-center">
       <PageHeader title="Edit User" />
-      <form className="w-50" onSubmit={handleSubmit(onSubmit)}>
+      <form className="w-50" onSubmit={handleSubmit}>
         {/* {serverError && <div className="alert alert-danger">{serverError}</div>} */}
         <div className="row">
           <div className="col-4">
@@ -52,7 +60,6 @@ function EditUser() {
               placeholder="First Name"
               {...getFieldProps("first")}
               error={touched.first && errors.first}
-              //   value={user.name.first}
             />
           </div>
           <div className="col-4">
