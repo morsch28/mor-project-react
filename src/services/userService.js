@@ -61,22 +61,19 @@ async function getAllUsers() {
 async function updateUser(id, user) {
   try {
     const response = await httpServices.put(`/users/${id}`, user);
-    return response.data;
+    return response;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 }
 
 async function deleteUser(id) {
   try {
-    const response = await httpServices.delete(`/users/${id}`, {
-      headers: {
-        "x-auth-token": getJWT(),
-      },
-    });
-    return response.data;
+    const response = await httpServices.delete(`/users/${id}`);
+    return response;
   } catch (error) {
     console.log(error);
+    return error;
   }
 }
 

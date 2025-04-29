@@ -83,8 +83,17 @@ export function useSignUpForm(userToUpdate) {
             "success",
             "User details updated successfully"
           );
+
           console.log(response);
-          navigate("/sand-box");
+          if (response?.status != 200) {
+            feedbackService.onFireModal(
+              "error",
+              "You have a server error:" + response.message,
+              (isConfirm) => {
+                if (isFinite) navigate("/sand-box");
+              }
+            );
+          } else navigate("/sand-box");
           return response;
         }
         const response = await createUser(user);

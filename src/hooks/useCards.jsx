@@ -84,5 +84,6 @@ export const useCards = () => {
     handleDelete,
     handleCreateNewCard,
     handleUpdateCard,
+    setCards,
   };
 };

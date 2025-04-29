@@ -1,11 +1,17 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth.context";
 import { useTheme } from "../context/theme.context";
+import { useCards } from "../hooks/useCards";
 
 function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const { mode, toggleMode } = useTheme();
+  const { cards, setCards } = useCards();
+
+  function filterCards(term) {
+    setCards(cards.filter((card) => card.title.includes(term)));
+  }
 
   return (
     <nav
@@ -96,6 +102,7 @@ function Navbar() {
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
+                onChange={(e) => filterCards(e.target.value)}
               />
             </form>
             {user ? (

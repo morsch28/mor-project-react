@@ -11,26 +11,41 @@ function SandBox() {
   const navigate = useNavigate();
   const { isLoading } = useCards();
 
-  async function deleteUser(id) {
-    try {
-      const deleteUser = await feedbackService.onFireModal(
-        "warning",
-        "Are you sure you want to delete this user?"
-      );
-      if (deleteUser) {
-        const response = await userService.deleteUser(id);
-        if (response) {
-          setUsersArr(usersArr.filter((user) => user._id != id));
-          await feedbackService.onFireModal(
-            "success",
-            "User deletes Successfully"
-          );
+  function deleteUser(id) {
+    feedbackService.onFireModal(
+      "warning",
+      "Are you sure you want to delete this user?",
+      async (isConfirm) => {
+        if (isConfirm) {
+          try {
+            const response = await userService.deleteUser(id);
+            if (response?.status == 200) {
+              setUsersArr(usersArr.filter((user) => user._id !== id));
+              feedbackService.onFireModal(
+                "success",
+                "User has been successfully deleted",
+                (isConfirm) => {
+                  if (isConfirm) navigate("/sand-box");
+                }
+              );
+            } else {
+              const errorMsg = response?.response.data;
+              feedbackService.onFireModal(
+                "error",
+                "you have server error: " + errorMsg,
+                (isConfirm) => {
+                  if (isConfirm) {
+                    navigate("/");
+                  }
+                }
+              );
+            }
+          } catch (error) {
+            console.log("your server error is " + error);
+          }
         }
       }
-    } catch (error) {
-      console.log(error);
-      await feedbackService.onFireModal("error", "server error:" + error);
-    }
+    );
   }
 
   useEffect(() => {

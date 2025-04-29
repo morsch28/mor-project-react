@@ -1,8 +1,13 @@
 import Bcard from "./Bcard";
 import { useCards } from "../hooks/useCards";
+import { useEffect } from "react";
 
 function ShowAllCards() {
   const { cards, isLoading, handleLike, handleDelete } = useCards();
+
+  useEffect(() => {
+    console.log("asdsdsd");
+  }, [cards]);
 
   return (
     <div>
