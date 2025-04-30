@@ -5,23 +5,28 @@ import { useEffect } from "react";
 import cardService from "../services/cardService";
 import Bcard from "../components/Bcard";
 import { useCards } from "../hooks/useCards";
+import { useAuth } from "../context/auth.context";
 
 function MyCards() {
-  const [myCards, setMyCards] = useState([]);
-  const { handleLike, handleDelete } = useCards();
+  const { handleLike, handleDelete, cards } = useCards();
+  const { user } = useAuth();
+  if (!user) {
+    return <div>Loading user....</div>;
+  }
+  const myCards = cards.filter((card) => card?.user_id == user?._id);
 
-  useEffect(() => {
-    const loadMyCards = async () => {
-      try {
-        const cards = await cardService.getAllMyCards();
-        setMyCards(cards.data);
-        return cards;
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    loadMyCards();
-  }, [myCards]);
+  // useEffect(() => {
+  //   const loadMyCards = async () => {
+  //     try {
+  //       const cards = await cardService.getAllMyCards();
+  //       setMyCards(cards.data);
+  //       return cards;
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  //   loadMyCards();
+  // }, [myCards]);
 
   return (
     <div className="container">
@@ -31,7 +36,7 @@ function MyCards() {
       />
       <CreateCardButton />
       <div className="row">
-        {myCards ? (
+        {myCards.length > 0 ? (
           myCards.map((card) => (
             <div key={card?._id} className="col-12 col-md-6 col-lg-3 mb-4">
               <Bcard card={card} onLike={handleLike} onDelete={handleDelete} />

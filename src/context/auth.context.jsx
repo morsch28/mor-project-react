@@ -30,8 +30,8 @@ export default function AuthProvider({ children }) {
       const response = await userService.login(credential);
       setDecodedToken(userService.getUserFromToken());
       return response;
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      throw errors(err);
     }
   };
 
@@ -47,6 +47,7 @@ export default function AuthProvider({ children }) {
         decodedToken,
         login,
         logout,
+        setUser,
         createUser: userService.createUser,
       }}
     >

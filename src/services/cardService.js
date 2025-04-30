@@ -36,7 +36,7 @@ async function CreateNewCard(normalizeCard) {
     const response = await httpServices.post("/cards", normalizeCard);
     return response;
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 }
 async function deleteCard(id) {

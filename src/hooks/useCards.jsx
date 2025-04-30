@@ -61,8 +61,8 @@ export const useCards = () => {
       const response = await cardService.CreateNewCard(normalizeCard);
       setCards([...cards, response]);
       return response;
-    } catch (error) {
-      console.log(error);
+    } catch (err) {
+      throw err;
     }
   }
   async function handleUpdateCard(id, cardData) {

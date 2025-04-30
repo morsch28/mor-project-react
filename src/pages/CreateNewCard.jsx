@@ -6,7 +6,7 @@ import { useNavigate } from "react-router";
 import PageHeader from "../components/common/PageHeader";
 import CardForm from "../components/CardForm";
 import { useCards } from "../hooks/useCards";
-import feedbackService from "../services/feedbackService";
+import { errorMsg, successMsg } from "../services/feedbackService";
 
 function CreateNewCard() {
   const { handleCreateNewCard } = useCards();
@@ -58,12 +58,19 @@ function CreateNewCard() {
     onSubmit: async (values) => {
       try {
         const response = await handleCreateNewCard(values);
-        feedbackService.successMessage();
-        await new Promise((resolve) => setTimeout(resolve, 500));
-        navigate("/");
-        return response;
+        if (response?.status == 200 || response?.status == 201) {
+          successMsg("Card created successfully");
+          navigate("/my-cards");
+        }
+
+        // feedbackService.successMessage();
+        // await new Promise((resolve) => setTimeout(resolve, 500));
+        // navigate("/");
+        // return response;
       } catch (error) {
-        console.log(error);
+        errorMsg(
+          "Can't to create card you have sever error " + error.response?.status
+        );
       }
     },
   });

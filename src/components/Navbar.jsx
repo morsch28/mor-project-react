@@ -133,7 +133,7 @@ function Navbar() {
                     Logout
                   </button>
                 </li>
-                {user?.isAdmin ? (
+                {user || user?.isBusiness || user?.isAdmin ? (
                   <li className="nav-item mx-3">
                     <NavLink
                       className="nav-link active fs-5"

@@ -31,15 +31,7 @@ function ShowUserInfoDetails({ user }) {
       </div>
       {/* Edit Button */}
       <button
-        onClick={() => {
-          feedbackService.onFireModal(
-            "warning",
-            "Are you sure you want to update user details?",
-            (isConfirm) => {
-              navigate(`/edit-user/${user?._id}`);
-            }
-          );
-        }}
+        onClick={() => navigate(`/edit-user/${user?._id}`)}
         className="my-3 py-2 px-3 btn btn-primary"
       >
         Edit User Details

@@ -2,17 +2,27 @@ import { useNavigate } from "react-router";
 import { useAuth } from "../context/auth.context";
 import { useFormik } from "formik";
 import Joi from "joi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { normalizeUser } from "../users/normalizeUser";
 import userService from "../services/userService";
+import { errorMsg, successMsg } from "../services/feedbackService";
 import feedbackService from "../services/feedbackService";
 
 export function useSignUpForm(userToUpdate) {
   const navigate = useNavigate();
-  const { createUser, login } = useAuth();
+  const { createUser, login, setUser } = useAuth();
 
-  const [serverError, setServerError] = useState("");
-
+  function onSuccess() {
+    return new Promise((resolve) => {
+      feedbackService.onFireModal(
+        "warning",
+        "Are you sure you want to update user details?",
+        (isConfirm) => {
+          resolve(isConfirm);
+        }
+      );
+    });
+  }
   const formik = useFormik({
     initialValues: {
       first: userToUpdate?.name.first || "",
@@ -29,7 +39,7 @@ export function useSignUpForm(userToUpdate) {
       street: userToUpdate?.address.street || "",
       houseNumber: userToUpdate?.address.houseNumber || "",
       zip: userToUpdate?.address.zip || "",
-      isBusiness: userToUpdate?.isBusiness || "",
+      isBusiness: userToUpdate?.isBusiness || false,
     },
     validate(values) {
       const schema = Joi.object({
@@ -59,7 +69,7 @@ export function useSignUpForm(userToUpdate) {
         street: Joi.string().min(2).max(256).required(),
         houseNumber: Joi.number().integer().positive().required(),
         zip: Joi.string().min(2).max(10).required(),
-        isBusiness: Joi.boolean().required(),
+        isBusiness: Joi.boolean().optional(),
       });
       const { error } = schema.validate(values, { abortEarly: false });
       if (!error) {
@@ -75,44 +85,37 @@ export function useSignUpForm(userToUpdate) {
       try {
         const user = normalizeUser(values);
         if (userToUpdate) {
+          console.log(userToUpdate);
           delete user.email;
           delete user.password;
           delete user.isBusiness;
           const response = await userService.updateUser(userToUpdate._id, user);
-          feedbackService.onFireModal(
-            "success",
-            "User details updated successfully"
-          );
-
-          console.log(response);
-          if (response?.status != 200) {
-            feedbackService.onFireModal(
-              "error",
-              "You have a server error:" + response.message,
-              (isConfirm) => {
-                if (isFinite) navigate("/sand-box");
-              }
-            );
-          } else navigate("/sand-box");
-          return response;
-        }
-        const response = await createUser(user);
-        if (response?.status === 201) {
-          await login({ email: values.email, password: values.password });
-          navigate("/");
+          if (response?.status == 200) {
+            const userConfirm = await onSuccess();
+            if (userConfirm) {
+              setUser(response?.data);
+              successMsg("User updates successfully");
+              navigate(`/user-info`);
+            }
+          } else {
+            errorMsg("Something was wrong: " + response);
+          }
+        } else {
+          const response = await createUser(user);
+          if (response?.status === 201 || response?.status === 200) {
+            successMsg(`${values.email} created successfully`);
+            await login({ email: values.email, password: values.password });
+            successMsg(`Welcome ${values?.first} ${values?.last}`);
+            navigate("/");
+          }
         }
       } catch (err) {
         console.log("error:", err);
-        if (err.response?.status === 400) {
-          console.log("status 400...");
-          setServerError(err.response.data);
-        } else {
-          console.log("Something wrong, Please try again!");
-        }
+        errorMsg(err.response.data);
       }
     },
   });
 
   // שאלה - למה כשאני מחזירה את formik לבד אפשר להחזיר אותו בלי ספרד ושאני מוסיפה serverError אז אני צריכה להוסיף את זה ?
-  return { ...formik, serverError };
+  return formik;
 }

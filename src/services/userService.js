@@ -9,10 +9,14 @@ function createUser(user) {
 }
 
 async function login(credential) {
-  const response = await httpServices.post("/users/login", credential);
-  console.log(response);
-  setToken(response.data);
-  return response;
+  try {
+    const response = await httpServices.post("/users/login", credential);
+    console.log(response);
+    setToken(response.data);
+    return response;
+  } catch (error) {
+    throw error;
+  }
 }
 
 function setToken(token) {
@@ -63,7 +67,7 @@ async function updateUser(id, user) {
     const response = await httpServices.put(`/users/${id}`, user);
     return response;
   } catch (error) {
-    return error;
+    throw error;
   }
 }
 

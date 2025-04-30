@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import Joi from "joi";
 import { useAuth } from "../context/auth.context";
 import FormButton from "../components/common/FormButtons";
+import { successMsg } from "../services/feedbackService";
 
 function SignIn() {
   const navigate = useNavigate();
@@ -36,7 +37,10 @@ function SignIn() {
     },
     onSubmit: async (values) => {
       try {
-        await login(values);
+        const response = await login(values);
+        if (response?.status == 200) {
+          successMsg(`${values.email} successfully connected`);
+        }
         navigate("/");
       } catch (err) {
         console.log(err);

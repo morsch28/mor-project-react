@@ -10,7 +10,10 @@ function Bcard({ card, onLike, onDelete }) {
   const navigate = useNavigate();
 
   return (
-    <div className="card" style={{ width: "15rem", height: "31rem" }}>
+    <div
+      className="card d-flex flex-column"
+      style={{ width: "250px", minHeight: "350px" }}
+    >
       <img
         src={card.image?.url}
         className="card-img-top cardImg"

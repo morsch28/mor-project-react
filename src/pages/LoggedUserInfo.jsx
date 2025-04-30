@@ -1,8 +1,13 @@
 import { useAuth } from "../context/auth.context";
 import PageHeader from "../components/common/PageHeader";
+import { useNavigate } from "react-router";
+import { useEffect, useState } from "react";
+import userService from "../services/userService";
 
 function LoggedUserInfo() {
   const { user } = useAuth();
+  const navigate = useNavigate();
+
   return user ? (
     <div className="d-flex bg-danger flex-column w-50 align-items-center">
       <PageHeader title="Logged User Info" />
@@ -21,7 +26,10 @@ function LoggedUserInfo() {
           </div>
         </div>
       </div>
-      <button className="my-3 py-2 px-3 btn btn-primary">
+      <button
+        className="my-3 py-2 px-3 btn btn-primary"
+        onClick={() => navigate(`/edit-user/${user?._id}`)}
+      >
         Edit User Details
       </button>
     </div>

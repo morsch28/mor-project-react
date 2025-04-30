@@ -15,6 +15,7 @@ createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <AuthProvider>
         <ThemeProvider>
+          <ToastContainer />
           <App />
         </ThemeProvider>
       </AuthProvider>

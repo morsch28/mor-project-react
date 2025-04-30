@@ -1,4 +1,5 @@
 import Swal from "sweetalert2";
+import { toast, Bounce } from "react-toastify";
 
 function successMessage() {
   Swal.fire({
@@ -56,6 +57,33 @@ function onFireModal(icon, text, callback) {
     showCancelButton: true,
   }).then((result) => {
     callback(result.isConfirmed);
+  });
+}
+export function successMsg(message) {
+  toast.success(message, {
+    position: "top-right",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: false,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+    transition: Bounce,
+  });
+}
+
+export function errorMsg(message) {
+  toast.error(message, {
+    position: "top-right",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: false,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "colored",
+    transition: Bounce,
   });
 }
 
