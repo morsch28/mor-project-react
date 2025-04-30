@@ -2,16 +2,13 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth.context";
 import { useTheme } from "../context/theme.context";
 import { useCards } from "../hooks/useCards";
+import { useSearch } from "../context/search.context";
 
 function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const { mode, toggleMode } = useTheme();
-  const { cards, setCards } = useCards();
-
-  function filterCards(term) {
-    setCards(cards.filter((card) => card.title.includes(term)));
-  }
+  const { updateSearch } = useSearch();
 
   return (
     <nav
@@ -102,7 +99,7 @@ function Navbar() {
                 type="search"
                 placeholder="Search"
                 aria-label="Search"
-                onChange={(e) => filterCards(e.target.value)}
+                onChange={(e) => updateSearch(e.target.value)}
               />
             </form>
             {user ? (
@@ -123,8 +120,9 @@ function Navbar() {
                   </button>
                 )}
 
-                <li className="nav-item mx-2">
+                <li className="nav-item">
                   <button
+                    className="bg-transparent border-white fs-5 fw-bold text-white"
                     onClick={() => {
                       logout();
                       navigate("/");

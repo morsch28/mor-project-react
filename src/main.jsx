@@ -9,6 +9,7 @@ import { BrowserRouter } from "react-router";
 import AuthProvider from "./context/auth.context.jsx";
 import { ThemeProvider } from "./context/theme.context.jsx";
 import { ToastContainer } from "react-toastify";
+import { SearchProvider } from "./context/search.context.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
@@ -16,7 +17,9 @@ createRoot(document.getElementById("root")).render(
       <AuthProvider>
         <ThemeProvider>
           <ToastContainer />
-          <App />
+          <SearchProvider>
+            <App />
+          </SearchProvider>
         </ThemeProvider>
       </AuthProvider>
     </BrowserRouter>

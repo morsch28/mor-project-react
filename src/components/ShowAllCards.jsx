@@ -1,14 +1,11 @@
 import Bcard from "./Bcard";
 import { useCards } from "../hooks/useCards";
 import { useEffect } from "react";
+import { useSearch } from "../context/search.context";
 
 function ShowAllCards() {
   const { cards, isLoading, handleLike, handleDelete } = useCards();
-
-  useEffect(() => {
-    console.log("asdsdsd");
-  }, [cards]);
-
+  const { filterCards } = useSearch();
   return (
     <div>
       {isLoading ? (
@@ -17,8 +14,8 @@ function ShowAllCards() {
         </div>
       ) : (
         <div className="row">
-          {cards ? (
-            cards.map((card) => (
+          {filterCards.length > 0 ? (
+            filterCards.map((card) => (
               <div key={card._id} className="col-12 col-md-6 col-lg-3 mb-4">
                 <Bcard
                   card={card}

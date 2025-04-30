@@ -11,3 +11,6 @@
 .navbar-custom-light .nav-link {
   color: white !important;
 }
+.toChange:hover {
+  transform: scale(1.1);
+}
