@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import Joi from "joi";
 import { useAuth } from "../context/auth.context";
 import FormButton from "../components/common/FormButtons";
-import { successMsg } from "../services/feedbackService";
+import { errorMsg, successMsg } from "../services/feedbackService";
 
 function SignIn() {
   const navigate = useNavigate();
@@ -40,9 +40,12 @@ function SignIn() {
         const response = await login(values);
         if (response?.status == 200) {
           successMsg(`${values.email} successfully connected`);
+          navigate("/");
+        } else {
+          errorMsg("Email or password incorrect");
         }
-        navigate("/");
       } catch (err) {
+        errorMsg("Email or password incorrect");
         console.log(err);
       }
     },

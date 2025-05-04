@@ -3,16 +3,21 @@ import { useAuth } from "../context/auth.context";
 import { useTheme } from "../context/theme.context";
 import { useCards } from "../hooks/useCards";
 import { useSearch } from "../context/search.context";
+import NavbarLinkComponent from "./NavLinkComponent";
+import { useWindowSize } from "@uidotdev/usehooks";
 
 function Navbar() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const { mode, toggleMode } = useTheme();
   const { updateSearch } = useSearch();
+  const size = useWindowSize();
+
+  const isMobile = size.width <= 1200;
 
   return (
     <nav
-      className={`navbar navbar-expand-md ${
+      className={`navbar navbar-expand-xl ${
         mode === "light" ? "navbar-custom-light" : "bg-black"
       }`}
       aria-label="Fourth navbar example"
@@ -35,58 +40,9 @@ function Navbar() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <ul className="navbar-nav me-auto mb-2 mb-md-0">
-          <li className="nav-item">
-            <NavLink
-              className="nav-link active fs-5"
-              aria-current="page"
-              to="/about"
-            >
-              About
-            </NavLink>
-          </li>
-        </ul>
-        {user ? (
+        {!isMobile ? (
           <ul className="navbar-nav me-auto mb-2 mb-md-0">
-            <li className="nav-item">
-              <NavLink
-                className="nav-link active fs-5"
-                aria-current="page"
-                to="/fav-cards"
-              >
-                Fav Cards
-              </NavLink>
-            </li>
-          </ul>
-        ) : (
-          <></>
-        )}
-        {user?.isBusiness || user?.isAdmin ? (
-          <ul className="navbar-nav me-auto mb-2 mb-md-0">
-            <li className="nav-item">
-              <NavLink
-                className="nav-link active fs-5"
-                aria-current="page"
-                to="/my-cards"
-              >
-                My Cards
-              </NavLink>
-            </li>
-          </ul>
-        ) : (
-          <></>
-        )}
-        {user?.isAdmin ? (
-          <ul className="navbar-nav me-auto mb-2 mb-md-0">
-            <li className="nav-item">
-              <NavLink
-                className="nav-link active fs-5"
-                aria-current="page"
-                to="/sand-box"
-              >
-                SandBox
-              </NavLink>
-            </li>
+            <NavbarLinkComponent />
           </ul>
         ) : (
           <></>
@@ -102,6 +58,7 @@ function Navbar() {
                 onChange={(e) => updateSearch(e.target.value)}
               />
             </form>
+            {isMobile ? <NavbarLinkComponent /> : <></>}
             {user ? (
               <>
                 {mode == "light" ? (

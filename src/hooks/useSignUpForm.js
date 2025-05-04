@@ -24,6 +24,7 @@ export function useSignUpForm(userToUpdate) {
     });
   }
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
       first: userToUpdate?.name.first || "",
       last: userToUpdate?.name.last || "",
@@ -68,8 +69,8 @@ export function useSignUpForm(userToUpdate) {
         city: Joi.string().min(2).max(100).required(),
         street: Joi.string().min(2).max(256).required(),
         houseNumber: Joi.number().integer().positive().required(),
-        zip: Joi.string().min(2).max(10).required(),
-        isBusiness: Joi.boolean().optional(),
+        zip: Joi.number().min(2).max(256).required(),
+        isBusiness: Joi.boolean(),
       });
       const { error } = schema.validate(values, { abortEarly: false });
       if (!error) {

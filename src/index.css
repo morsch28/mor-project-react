@@ -14,3 +14,13 @@
 .toChange:hover {
   transform: scale(1.1);
 }
+
+@media screen and (max-width: 767px) {
+  #create-card {
+    width: 15%;
+    position: absolute;
+    top: 30%;
+    left: 80%;
+    font-size: 12px;
+  }
+}

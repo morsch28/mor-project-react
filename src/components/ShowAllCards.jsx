@@ -5,7 +5,12 @@ import { useSearch } from "../context/search.context";
 
 function ShowAllCards() {
   const { cards, isLoading, handleLike, handleDelete } = useCards();
-  const { filterCards } = useSearch();
+  const { search } = useSearch();
+
+  const filterCards = cards.filter((card) =>
+    card.title.toLowerCase().includes(search)
+  );
+
   return (
     <div>
       {isLoading ? (
@@ -16,7 +21,10 @@ function ShowAllCards() {
         <div className="row">
           {filterCards.length > 0 ? (
             filterCards.map((card) => (
-              <div key={card._id} className="col-12 col-md-6 col-lg-3 mb-4">
+              <div
+                key={card._id}
+                className="col-12 col-md-6 col-lg-3 mb-4 d-flex justify-content-center"
+              >
                 <Bcard
                   card={card}
                   onLike={handleLike}

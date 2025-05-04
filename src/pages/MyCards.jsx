@@ -6,14 +6,20 @@ import cardService from "../services/cardService";
 import Bcard from "../components/Bcard";
 import { useCards } from "../hooks/useCards";
 import { useAuth } from "../context/auth.context";
+import { useSearch } from "../context/search.context";
 
 function MyCards() {
   const { handleLike, handleDelete, cards } = useCards();
   const { user } = useAuth();
+  const { search } = useSearch();
+
+  const filterCards = cards.filter((card) =>
+    card.title.toLowerCase().includes(search)
+  );
   if (!user) {
     return <div>Loading user....</div>;
   }
-  const myCards = cards.filter((card) => card?.user_id == user?._id);
+  const myCards = filterCards.filter((card) => card?.user_id == user?._id);
 
   // useEffect(() => {
   //   const loadMyCards = async () => {
