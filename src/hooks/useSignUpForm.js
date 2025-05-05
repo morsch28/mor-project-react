@@ -94,9 +94,11 @@ export function useSignUpForm(userToUpdate) {
           if (response?.status == 200) {
             const userConfirm = await onSuccess();
             if (userConfirm) {
-              setUser(response?.data);
+              if (login._id == response.data._id) {
+                setUser(response?.data); //לשאול
+              }
               successMsg("User updates successfully");
-              navigate(`/user-info`);
+              navigate(`/sand-box`);
             }
           } else {
             errorMsg("Something was wrong: " + response);

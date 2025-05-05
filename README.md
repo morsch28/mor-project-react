@@ -1,12 +1,41 @@
-# React + Vite
+# Business Cards App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack **React** Single Page Application (SPA) for managing business cards
 
-Currently, two official plugins are available:
+## Description
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This project allows users to browse, create, edit and like business cards. The app includes a role-based access system with three types of users:
 
-## Expanding the ESLint configuration
+- **Regular Users** can:
+  -View all business cards
+  -Like or unlike cards
+  -Edit their personal profile
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Business Users** can:
+  -Do everything a regular user can
+  -Create new business cards
+  -View and manage only the cards they have created
+
+- **Admin Users** can:
+  -Do everything a regular and business users can
+  -manage their and all users cards
+  -View the list of all users
+  -Edit users details
+  -Delete users
+
+## Features
+
+-Role-based user interface (User / Business / Admin)
+-Like/Unlike cards functionality
+-Responsive design
+-User authentication and authorization
+-User profile editing
+-Card creation, editing, and deletion (for business and admin users)
+-Admin panel for user management
+
+## Technologies
+
+-React
+-React Router
+-JavaScript (ES6+)
+-HTML & CSS
