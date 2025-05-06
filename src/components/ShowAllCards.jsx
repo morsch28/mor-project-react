@@ -18,13 +18,10 @@ function ShowAllCards() {
           <span className="sr-only">Loading...</span>
         </div>
       ) : (
-        <div className="row">
+        <div className="row gx-2 gy-4">
           {filterCards.length > 0 ? (
             filterCards.map((card) => (
-              <div
-                key={card._id}
-                className="col-12 col-md-6 col-lg-3 mb-4 d-flex justify-content-center"
-              >
+              <div key={card._id} className="col d-flex justify-content-center">
                 <Bcard
                   card={card}
                   onLike={handleLike}

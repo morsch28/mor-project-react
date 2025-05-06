@@ -40,7 +40,7 @@ export function useSignUpForm(userToUpdate) {
       street: userToUpdate?.address.street || "",
       houseNumber: userToUpdate?.address.houseNumber || "",
       zip: userToUpdate?.address.zip || "",
-      isBusiness: userToUpdate?.isBusiness || false,
+      isBusiness: Boolean(userToUpdate?.isBusiness),
     },
     validate(values) {
       const schema = Joi.object({
@@ -70,7 +70,7 @@ export function useSignUpForm(userToUpdate) {
         street: Joi.string().min(2).max(256).required(),
         houseNumber: Joi.number().integer().positive().required(),
         zip: Joi.number().min(2).max(256).required(),
-        isBusiness: Joi.boolean(),
+        isBusiness: Joi.boolean().optional(),
       });
       const { error } = schema.validate(values, { abortEarly: false });
       if (!error) {
@@ -86,7 +86,6 @@ export function useSignUpForm(userToUpdate) {
       try {
         const user = normalizeUser(values);
         if (userToUpdate) {
-          console.log(userToUpdate);
           delete user.email;
           delete user.password;
           delete user.isBusiness;

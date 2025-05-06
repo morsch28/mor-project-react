@@ -11,7 +11,7 @@ function createUser(user) {
 async function login(credential) {
   try {
     const response = await httpServices.post("/users/login", credential);
-    console.log(response);
+
     setToken(response.data);
     return response;
   } catch (error) {

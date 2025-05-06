@@ -17,7 +17,6 @@ export default function AuthProvider({ children }) {
       userService.refreshToken();
       const loadUser = async () => {
         const userId = await userService.getUserById(decodedToken._id);
-        console.log(userId);
         setUser(userId);
         return userId;
       };

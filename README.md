@@ -39,3 +39,19 @@ This project allows users to browse, create, edit and like business cards. The a
 -React Router
 -JavaScript (ES6+)
 -HTML & CSS
+
+## Libraries & Tools
+
+- **Formik** – for building and managing forms
+- **Joi** - Joi is a JavaScript validation library used to ensure data conforms to defined schemas.
+
+## Installation & Setup
+
+To run the project locally:
+
+1. **Clone the repository:**
+
+   ```bash
+
+   git clone https://github.com/morsch28/mor-project-react
+   ```

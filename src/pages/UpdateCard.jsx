@@ -75,7 +75,6 @@ function UpdateCard() {
       return errors;
     },
     onSubmit: async (values) => {
-      console.log("onSubmit Called");
       try {
         if (cardToUpdate) {
           const normalizeCard = normalizeCards(values);

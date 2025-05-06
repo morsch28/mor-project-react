@@ -12,6 +12,7 @@ function Input({ error, ...rest }) {
           ].join(" ")}
           id={rest.name}
           aria-describedby="emailHelp"
+          checked={rest?.type == "checkbox" && rest?.value}
         />
         {rest?.label && rest?.type == "checkbox" && (
           <label className="ms-3">{rest.label}</label>

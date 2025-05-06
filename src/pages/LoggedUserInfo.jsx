@@ -9,9 +9,12 @@ function LoggedUserInfo() {
   const navigate = useNavigate();
 
   return user ? (
-    <div className="d-flex bg-danger flex-column w-50 align-items-center">
+    <div
+      className="d-flex bg-primary-subtle my-4 flex-column  align-items-center"
+      style={{ maxWidth: "400px", padding: "10px" }}
+    >
       <PageHeader title="Logged User Info" />
-      <div className="d-flex justify-content-center align-items-center gap-5">
+      <div className="d-flex flex-column justify-content-center align-items-center gap-5">
         <img src={user.image.url} className="w-50 mx-3" />
         <div className="d-flex flex-column fw-bold fs-5 gap-4">
           <div>UserId: {user._id}</div>

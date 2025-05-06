@@ -6,7 +6,6 @@ import CreateCardButton from "../components/CreateCardButton";
 
 function Home() {
   const { user } = useAuth();
-  console.log(user);
 
   const capitalize = (str) => {
     return str?.charAt(0).toUpperCase() + str?.slice(1).toLowerCase();

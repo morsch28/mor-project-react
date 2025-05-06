@@ -12,7 +12,7 @@ function Bcard({ card, onLike, onDelete }) {
   return (
     <div
       className="card d-flex flex-column h-100 rounded-sm toChange"
-      style={{ width: "220px", minHeight: "400px" }}
+      style={{ width: "250px", minHeight: "400px" }}
     >
       <Link to={`/card-details/${card._id}`} style={{ textDecoration: "none" }}>
         <img
@@ -21,26 +21,27 @@ function Bcard({ card, onLike, onDelete }) {
           style={{ height: "200px", objectFit: "cover" }}
           alt={card.image?.alt}
         />
-        <div className="card-body" style={{ maxHeight: "140px", flexGrow: 1 }}>
+        <div className="card-body" style={{ height: "140px", flexGrow: 1 }}>
           <h2 className="card-title fs-5">{card.title}</h2>
           <h4 className="card-title fs-5">{card.subtitle}</h4>
         </div>
-        <ul className="list-group group-flush">
-          <li className="list-group-item border-0">
-            <span>Phone: </span>
-            {card.phone}
-          </li>
-          <li className="list-group-item border-0">
-            <span>Address: </span>
-            {`${card.address.street} ${card.address.houseNumber}, ${card.address.city}`}
-          </li>
-          <li className="list-group-item">
-            <span>Card Number: </span>
-            {card.bizNumber}
-          </li>
-        </ul>
       </Link>
-      <div className="card-footer d-flex justify-content-between bg-transparent py-2">
+      <ul className="list-group group-flush">
+        <li className="list-group-item border-0">
+          <span>Phone: </span>
+          {card.phone}
+        </li>
+        <li className="list-group-item border-0">
+          <span>Address: </span>
+          {`${card.address.street} ${card.address.houseNumber}, ${card.address.city}`}
+        </li>
+        <li className="list-group-item">
+          <span>Card Number: </span>
+          {card.bizNumber}
+        </li>
+      </ul>
+
+      <div className="card-footer d-flex justify-content-between bg-transparent py-2 mt-auto">
         <div className="d-flex gap-3">
           <Link href={`tel: ${card.phone}`}>
             <i className="fa-solid fa-phone "></i>

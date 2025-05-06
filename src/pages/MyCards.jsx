@@ -21,19 +21,6 @@ function MyCards() {
   }
   const myCards = filterCards.filter((card) => card?.user_id == user?._id);
 
-  // useEffect(() => {
-  //   const loadMyCards = async () => {
-  //     try {
-  //       const cards = await cardService.getAllMyCards();
-  //       setMyCards(cards.data);
-  //       return cards;
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   loadMyCards();
-  // }, [myCards]);
-
   return (
     <div className="container">
       <PageHeader

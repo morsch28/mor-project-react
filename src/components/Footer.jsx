@@ -9,7 +9,7 @@ function Footer() {
 
   return (
     <footer
-      className={`border-top  border-2 d-flex justify-content-center fs-5 fw-bold bg-light footer ${
+      className={`border-top  border-2 d-flex justify-content-center fs-5 fw-bold footerBg footer ${
         mode == "dark" ? "bg-black" : ""
       }`}
     >
@@ -24,7 +24,7 @@ function Footer() {
               onClick={() => navigate("/about")}
               className="border-0 bg-transparent fs-5"
             >
-              <i className="bi bi-info-circle-fill"></i>
+              <i className="bi bi-info-circle-fill text-primary"></i>
             </button>
             <span className="fs-6">About</span>
           </div>
@@ -51,7 +51,7 @@ function Footer() {
                 onClick={() => navigate("/my-cards")}
                 className="border-0 bg-transparent fs-5"
               >
-                <i className="bi bi-person-square"></i>
+                <i className="bi bi-person-square text-success"></i>
               </button>
               <span className="fs-6">My Cards</span>
             </div>

@@ -6,9 +6,12 @@ function ShowUserInfoDetails({ user }) {
   const navigate = useNavigate();
 
   return (
-    <div className="d-flex bg-warning flex-column w-50 justify-content-center align-items-center">
+    <div
+      className="d-flex bg-warning flex-column mt-5 justify-content-center align-items-center userInfo"
+      style={{ maxWidth: "400px", padding: "10px" }}
+    >
       <PageHeader title="User Information" />
-      <div className="d-flex justify-content-center align-items-center gap-5">
+      <div className="d-flex flex-column justify-content-center align-items-center gap-5">
         <img src={user?.image.url} className="w-50 mx-3" />
         <div className="d-flex flex-column  fs-5 gap-4 my-4">
           <div>UserId: {user?._id}</div>

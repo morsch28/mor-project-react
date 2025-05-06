@@ -6,13 +6,21 @@
   left: 80%;
 }
 .navbar-custom-light {
-  background-color: rgb(27, 20, 214);
+  background-color: rgb(21, 17, 152);
 }
 .navbar-custom-light .nav-link {
   color: white !important;
 }
 .toChange:hover {
-  transform: scale(1.1);
+  transform: scale(0.9);
+}
+.table {
+  overflow: scroll;
+  height: 100vh;
+  width: 100%;
+}
+.custom-toggler {
+  background-color: #fff !important;
 }
 
 @media screen and (max-width: 767px) {

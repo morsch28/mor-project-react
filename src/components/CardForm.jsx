@@ -2,7 +2,6 @@ import UpdateCard from "../pages/UpdateCard";
 import Input from "./common/Input";
 
 function CardForm({ formik }) {
-  console.log("formik", formik);
   const { handleSubmit, getFieldProps, touched, errors } = formik;
   return (
     <form className="w-50" onSubmit={handleSubmit}>

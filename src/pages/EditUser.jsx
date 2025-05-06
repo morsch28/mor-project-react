@@ -34,7 +34,7 @@ function EditUser() {
           street: userToEdit?.address.street || "",
           houseNumber: userToEdit?.address.houseNumber || "",
           zip: userToEdit?.address.zip || "",
-          isBusiness: userToEdit?.isBusiness || "",
+          isBusiness: Boolean(userToEdit?.isBusiness),
         });
         return userToEdit;
       } catch (error) {
