@@ -6,7 +6,7 @@ import { useCards } from "../hooks/useCards";
 import { useSearch } from "../context/search.context";
 
 function FavCards() {
-  const { cards, handleLike, isLoading } = useCards();
+  const { cards, handleLike, isLoading, handleDelete } = useCards();
   const { user } = useAuth();
   const { search } = useSearch();
 
@@ -30,7 +30,11 @@ function FavCards() {
           {filterCards.map((card) =>
             card.liked ? (
               <div key={card._id} className="col-12 col-md-6 col-lg-3 mb-4">
-                <Bcard card={card} onLike={handleLike} />
+                <Bcard
+                  card={card}
+                  onLike={handleLike}
+                  onDelete={handleDelete}
+                />
               </div>
             ) : null
           )}
